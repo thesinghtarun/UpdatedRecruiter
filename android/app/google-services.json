@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1072952323658",
+    "project_id": "reruiterupdated",
+    "storage_bucket": "reruiterupdated.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1072952323658:android:e1ebe7096723b37b5d80b3",
+        "android_client_info": {
+          "package_name": "com.example.recruiter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgXNSMo9BtbJYTYLvVzeDTqrp9ZW_NSro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

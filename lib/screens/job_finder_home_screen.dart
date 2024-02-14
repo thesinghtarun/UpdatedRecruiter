@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:recruiter/screens/job_provider_screens/add.dart';
-import 'package:recruiter/screens/job_provider_screens/category.dart';
-import 'package:recruiter/screens/job_provider_screens/favourite.dart';
-import 'package:recruiter/screens/job_provider_screens/homepage.dart';
-import 'package:recruiter/screens/job_provider_screens/profile.dart';
+import 'package:recruiter/screens/job_finder_screen/favourite.dart';
+import 'package:recruiter/screens/job_finder_screen/homepage.dart';
+import 'package:recruiter/screens/job_finder_screen/profile.dart';
 
-class JobProviderHomeScreen extends StatefulWidget {
-  const JobProviderHomeScreen({super.key});
+class JobFinderHomeScreen extends StatefulWidget {
+  const JobFinderHomeScreen({super.key});
 
   @override
-  State<JobProviderHomeScreen> createState() => _JobProviderHomeScreenState();
+  State<JobFinderHomeScreen> createState() => _JobFinderHomeScreenState();
 }
 
-class _JobProviderHomeScreenState extends State<JobProviderHomeScreen> {
+class _JobFinderHomeScreenState extends State<JobFinderHomeScreen> {
   int _currentIndex = 0;
-  final PageController _pageController = PageController(initialPage: 0);
+  PageController _pageController = PageController(initialPage: 0);
   final _bottomNavigationBarItem = [
     const BottomNavigationBarItem(
       icon: Icon(
@@ -29,20 +27,6 @@ class _JobProviderHomeScreenState extends State<JobProviderHomeScreen> {
         color: Color.fromARGB(205, 22, 68, 87),
       ),
       label: "Favorite",
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(
-        Icons.add_box_rounded,
-        color: Color.fromARGB(205, 22, 68, 87),
-      ),
-      label: "Add",
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(
-        Icons.category,
-        color: Color.fromARGB(205, 22, 68, 87),
-      ),
-      label: "Category",
     ),
     const BottomNavigationBarItem(
       icon: Icon(
@@ -65,13 +49,11 @@ class _JobProviderHomeScreenState extends State<JobProviderHomeScreen> {
           children: const [
             HomePage(),
             Favourite(),
-            Add(),
-            Category(),
             Profile(),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: const Color.fromARGB(255, 85, 143, 151),
+          backgroundColor: Color.fromARGB(255, 245, 248, 248),
           selectedItemColor: Colors.black,
           unselectedItemColor: Colors.black,
 

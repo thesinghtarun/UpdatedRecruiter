@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:recruiter/helper/ui_helper.dart';
 
@@ -12,14 +13,17 @@ class Add extends StatefulWidget {
 class _AddState extends State<Add> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _experienceController = TextEditingController();
   final TextEditingController _skillsController = TextEditingController();
+  final TextEditingController _salaryController = TextEditingController();
+
   //Database
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
           children: [
             TextField(
               controller: _titleController,
@@ -39,8 +43,13 @@ class _AddState extends State<Add> {
               controller: _skillsController,
               decoration: const InputDecoration(hintText: "Skills Required"),
             ),
-            const SizedBox(
-              height: 20,
+            TextField(
+              controller: _experienceController,
+              decoration: const InputDecoration(hintText: "Experience"),
+            ),
+            TextField(
+              controller: _salaryController,
+              decoration: const InputDecoration(hintText: "Salary"),
             ),
             ElevatedButton(
                 onPressed: () => addJobs(), child: const Text("Add Job")),
@@ -51,15 +60,23 @@ class _AddState extends State<Add> {
   }
 
   void addJobs() async {
-    String title = _titleController.text.toString();
-    String description = _descriptionController.text.toString();
-    String skills = _skillsController.text.toString();
+    String title = _titleController.text.toString().trim();
+    String description = _descriptionController.text.toString().trim();
+    String skills = _skillsController.text.toString().trim();
+    String email = FirebaseAuth.instance.currentUser!.email.toString().trim();
+    String time = getCurrentDateTime();
+    String experience = _experienceController.text.toString().trim();
+    String salary = _salaryController.text.toString().trim();
 
     //Add data to map
     Map<String, dynamic> addJobs = {
-      "titlle": title,
+      "title": title,
       "description": description,
-      "skills": skills
+      "skills": skills,
+      "email": email,
+      "posted at": time,
+      "salary": salary,
+      "experience required": experience,
     };
 
     //Adding to database
@@ -67,5 +84,10 @@ class _AddState extends State<Add> {
         .collection("Jobs")
         .add(addJobs)
         .then((value) => UiHelper.showSnackbar(context, "Job Added"));
+  }
+
+  static String getCurrentDateTime() {
+    DateTime now = DateTime.now();
+    return now.toString(); // Example output: 2024-02-07 16:49:33.123456
   }
 }

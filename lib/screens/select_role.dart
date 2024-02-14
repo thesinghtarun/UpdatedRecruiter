@@ -67,12 +67,13 @@ class SelectRole extends StatelessWidget {
                       ),
                     ]),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 80, left: 160, right: 10),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 80, left: 160, right: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "I Want \na job",
                           style: TextStyle(
                               color: Colors.white,
@@ -81,10 +82,10 @@ class SelectRole extends StatelessWidget {
                         ),
                         CircleAvatar(
                           backgroundColor: Colors.white,
-                          child: Icon(
-                            Icons.arrow_forward,
-                            color: Colors.blue,
-                          ),
+                          child: IconButton(
+                              icon: const Icon(Icons.arrow_forward),
+                              onPressed: () => Navigator.pushNamed(
+                                  context, "/JobFinderHomeScreen")),
                         )
                       ],
                     ),

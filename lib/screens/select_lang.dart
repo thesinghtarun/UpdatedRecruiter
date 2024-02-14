@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,7 @@ class SelectLanguage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Image.asset("assets/images/welcomeScreen.png"),
@@ -67,7 +68,7 @@ class SelectLanguage extends StatelessWidget {
                       CupertinoButton(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 100, vertical: 14),
-                          color: Color.fromARGB(255, 146, 212, 221),
+                          color: const Color.fromARGB(255, 146, 212, 221),
                           child: const Text(
                             "English",
                             style: TextStyle(
@@ -83,7 +84,7 @@ class SelectLanguage extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: CupertinoButton(
-          color: Color.fromARGB(255, 85, 143, 151),
+          color: const Color.fromARGB(255, 85, 143, 151),
           child: const Text(
             "Get Started",
             style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),

@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  bool _liked = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -75,6 +76,9 @@ class _HomePageState extends State<HomePage> {
                             subtitle: Text(jobsData["description"]),
                             trailing: IconButton(
                                 onPressed: () async {
+                                  setState(() {
+                                    _liked = true;
+                                  });
                                   Map<String, dynamic> likedJobs = {
                                     "title": jobsData["title"],
                                     "description": jobsData["description"],
@@ -93,7 +97,14 @@ class _HomePageState extends State<HomePage> {
                                       .then((value) => UiHelper.showSnackbar(
                                           context, "Added to fav"));
                                 },
-                                icon: const Icon(CupertinoIcons.heart)),
+                                icon: _liked
+                                    ? Icon(
+                                        CupertinoIcons.heart_fill,
+                                        color: Colors.red[200],
+                                      )
+                                    : const Icon(
+                                        CupertinoIcons.heart,
+                                      )),
                           ),
                         );
                       },

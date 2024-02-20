@@ -37,196 +37,236 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        elevation: 0.1,
-        backgroundColor: const Color.fromARGB(103, 85, 143, 151),
-        title: const Text(
-          "Create Account",
-          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 31),
-        ),
-      ),
-      body: Container(
-        margin: const EdgeInsets.all(15),
-        child: SingleChildScrollView(
-            child: Column(
+      body: SingleChildScrollView(
+        child: Stack(
           children: [
-            const SizedBox(
-              height: 10,
+            Container(
+              height: MediaQuery.of(context).size.height / 4,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 85, 143, 151),
+                  borderRadius: BorderRadius.vertical(
+                      bottom: Radius.elliptical(
+                          MediaQuery.of(context).size.width, 105))),
             ),
-            const Text(
-              "Recruiter",
-              style: TextStyle(
-                  color: Color.fromARGB(255, 85, 143, 151),
-                  fontSize: 60,
-                  fontFamily: "GreatVibes-Regular"),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Center(
-              child: CupertinoButton(
-                  onPressed: () {
-                    showPhotoOption();
-                  },
-                  padding: EdgeInsets.zero,
-                  child: _pickedImage == null
-                      ? const CircleAvatar(
-                          backgroundColor: Color.fromARGB(255, 85, 143, 151),
-                          radius: 50,
-                          child: Icon(
-                            Icons.person_add,
-                            size: 60,
+            Padding(
+              padding: const EdgeInsets.only(top: 60),
+              child: Column(
+                children: [
+                  const Text(
+                    "Sign Up",
+                    style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  const Text(
+                    "Create your Account",
+                    style: TextStyle(fontSize: 18, color: Colors.white54),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Material(
+                      elevation: 7,
+                      borderRadius: BorderRadius.circular(15),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 15),
+                        height: MediaQuery.of(context).size.height / 1.2,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
                             color: Colors.white,
-                          ))
-                      : CircleAvatar(
-                          backgroundImage: FileImage(_pickedImage!),
-                          radius: 50,
-                          child: const Icon(
-                            null,
-                            size: 50,
-                          ))),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            TextField(
-              controller: _userNameController,
-              decoration: const InputDecoration(
-                hintText: "Username*",
-                hintStyle: TextStyle(color: Colors.grey),
-                suffixIcon: Icon(
-                  Icons.person,
-                  // color: Colors.grey,
-                  size: 20,
-                ),
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
-              ),
-              cursorColor: Colors.grey,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(
-                hintText: "Email*",
-                hintStyle: TextStyle(color: Colors.grey),
-                suffixIcon: Icon(
-                  Icons.mail,
-                  //color: Colors.grey,
-                  size: 20,
-                ),
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
-              ),
-              cursorColor: Colors.grey,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            TextField(
-              controller: _passwordController,
-              keyboardType: TextInputType.visiblePassword,
-              obscureText: _passwordVisible,
-              decoration: const InputDecoration(
-                hintText: "Password*",
-                hintStyle: TextStyle(color: Colors.grey),
-                suffixIcon: Icon(Icons.password),
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
-              ),
-              cursorColor: Colors.grey,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            TextField(
-              controller: _cityController,
-              decoration: const InputDecoration(
-                hintText: "City*",
-                hintStyle: TextStyle(color: Colors.grey),
-                suffixIcon: Icon(
-                  Icons.location_city,
-                  //color: Colors.grey,
-                  size: 20,
-                ),
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
-              ),
-              cursorColor: Colors.grey,
-            ),
-            Row(
-              children: [
-                Checkbox(
-                  checkColor: Colors.white,
-                  fillColor: const MaterialStatePropertyAll(
-                    Color.fromARGB(255, 85, 143, 151),
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Center(
+                              child: Text(
+                                "Recruiter",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontFamily: "GreatVibes-Regular"),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Center(
+                              child: CupertinoButton(
+                                  onPressed: () {
+                                    showPhotoOption();
+                                  },
+                                  padding: EdgeInsets.zero,
+                                  child: _pickedImage == null
+                                      ? const CircleAvatar(
+                                          backgroundColor:
+                                              Color.fromARGB(255, 85, 143, 151),
+                                          radius: 40,
+                                          child: Icon(
+                                            Icons.person_add,
+                                            size: 40,
+                                            color: Colors.white,
+                                          ))
+                                      : CircleAvatar(
+                                          backgroundImage:
+                                              FileImage(_pickedImage!),
+                                          radius: 40,
+                                          child: const Icon(
+                                            null,
+                                            size: 40,
+                                          ))),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const Text(
+                              "User Name",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: TextField(
+                                controller: _userNameController,
+                                decoration: const InputDecoration(
+                                    prefixIcon: Icon(Icons.person),
+                                    border: InputBorder.none),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            const Text(
+                              "Email",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: TextField(
+                                controller: _emailController,
+                                decoration: const InputDecoration(
+                                    prefixIcon: Icon(Icons.email),
+                                    border: InputBorder.none),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            const Text(
+                              "Password",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: TextField(
+                                controller: _passwordController,
+                                obscureText: true,
+                                decoration: const InputDecoration(
+                                    prefixIcon: Icon(Icons.password),
+                                    border: InputBorder.none),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            const Text(
+                              "City",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: TextField(
+                                controller: _cityController,
+                                decoration: const InputDecoration(
+                                    prefixIcon: Icon(Icons.location_city),
+                                    border: InputBorder.none),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  "Already have an account?",
+                                  style: TextStyle(fontSize: 17),
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                InkWell(
+                                    onTap: () => Navigator.pushReplacementNamed(
+                                        context, '/Login'),
+                                    child: const Text(
+                                      "SIGN IN",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Center(
+                              child: ElevatedButton(
+                                onPressed: () => validateTextBox(),
+                                style: ButtonStyle(
+                                    backgroundColor:
+                                        const MaterialStatePropertyAll(
+                                      Color.fromARGB(255, 85, 143, 151),
+                                    ),
+                                    shape: MaterialStatePropertyAll(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(40))),
+                                    padding: const MaterialStatePropertyAll(
+                                        EdgeInsets.only(
+                                            left: 60,
+                                            right: 60,
+                                            bottom: 10,
+                                            top: 10))),
+                                child: const Text(
+                                  "Register",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                  value: isChecked,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      isChecked = value!;
-                    });
-                  },
-                ),
-                const Text(
-                  "I Read and agree to",
-                  style: TextStyle(color: Colors.black26),
-                ),
-                const Text(
-                  "Terms & Conditions",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 85, 143, 151),
-                    fontWeight: FontWeight.w500,
-                    fontStyle: FontStyle.italic,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              onPressed: () => validateTextBox(),
-              style: ButtonStyle(
-                  backgroundColor: const MaterialStatePropertyAll(
-                    Color.fromARGB(255, 85, 143, 151),
-                  ),
-                  shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40))),
-                  padding: const MaterialStatePropertyAll(EdgeInsets.only(
-                      left: 90, right: 90, bottom: 15, top: 15))),
-              child: const Text("Register"),
-            ),
-            const SizedBox(
-              height: 55,
-            ),
-          ],
-        )),
-      ),
-      bottomNavigationBar: Container(
-        height: 50,
-        //padding: const EdgeInsets.only(left: 60, right: 10),
-        color: const Color.fromARGB(129, 158, 158, 158),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text("Already have an account?"),
-            InkWell(
-              onTap: () {
-                Navigator.pushReplacementNamed(context, '/LoginScreen');
-              },
-              child: const Text(
-                " Login",
-                style: TextStyle(
-                    color: Color.fromARGB(255, 85, 143, 151),
-                    fontWeight: FontWeight.bold),
+                ],
               ),
-            )
+            ),
           ],
         ),
       ),

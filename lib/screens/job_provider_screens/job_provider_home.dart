@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recruiter/screens/job_provider_screens/add.dart';
-import 'package:recruiter/screens/job_provider_screens/category.dart';
-import 'package:recruiter/screens/job_provider_screens/favourite.dart';
+import 'package:recruiter/screens/job_provider_screens/chat.dart';
 import 'package:recruiter/screens/job_provider_screens/homepage.dart';
 import 'package:recruiter/screens/job_provider_screens/profile.dart';
 
@@ -25,13 +24,6 @@ class _JobProviderHomeScreenState extends State<JobProviderHomeScreen> {
     ),
     const BottomNavigationBarItem(
       icon: Icon(
-        Icons.favorite,
-        color: Color.fromARGB(205, 22, 68, 87),
-      ),
-      label: "Favorite",
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(
         Icons.add_box_rounded,
         color: Color.fromARGB(205, 22, 68, 87),
       ),
@@ -39,10 +31,10 @@ class _JobProviderHomeScreenState extends State<JobProviderHomeScreen> {
     ),
     const BottomNavigationBarItem(
       icon: Icon(
-        Icons.category,
+        Icons.message,
         color: Color.fromARGB(205, 22, 68, 87),
       ),
-      label: "Category",
+      label: "Chat",
     ),
     const BottomNavigationBarItem(
       icon: Icon(
@@ -63,10 +55,9 @@ class _JobProviderHomeScreenState extends State<JobProviderHomeScreen> {
             });
           },
           children: const [
+            Chat(),
             HomePage(),
-            Favourite(),
             Add(),
-            Category(),
             Profile(),
           ],
         ),

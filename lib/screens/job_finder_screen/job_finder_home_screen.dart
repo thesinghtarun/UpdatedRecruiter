@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recruiter/screens/job_finder_screen/favourite.dart';
 import 'package:recruiter/screens/job_finder_screen/homepage.dart';
 import 'package:recruiter/screens/job_finder_screen/profile.dart';
+import 'package:recruiter/screens/job_finder_screen/search.dart';
 
 class JobFinderHomeScreen extends StatefulWidget {
   const JobFinderHomeScreen({super.key});
@@ -20,6 +21,13 @@ class _JobFinderHomeScreenState extends State<JobFinderHomeScreen> {
         color: Color.fromARGB(205, 22, 68, 87),
       ),
       label: "Home",
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(
+        Icons.search,
+        color: Color.fromARGB(205, 22, 68, 87),
+      ),
+      label: "Search",
     ),
     const BottomNavigationBarItem(
       icon: Icon(
@@ -48,12 +56,13 @@ class _JobFinderHomeScreenState extends State<JobFinderHomeScreen> {
           },
           children: const [
             HomePage(),
+            Search(),
             Favourite(),
             Profile(),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Color.fromARGB(255, 245, 248, 248),
+          backgroundColor: const Color.fromARGB(255, 245, 248, 248),
           selectedItemColor: Colors.black,
           unselectedItemColor: Colors.black,
 

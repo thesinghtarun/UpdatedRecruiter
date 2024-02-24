@@ -17,7 +17,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool _passwordVisible = false;
+  bool _passwordVisible = true;
 
   //Creating firebaseAuth instance
   final FirebaseAuth _mAuth = FirebaseAuth.instance;
@@ -38,7 +38,7 @@ class _LoginState extends State<Login> {
                           MediaQuery.of(context).size.width, 105))),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 60),
+              padding: const EdgeInsets.only(top: 40),
               child: Column(
                 children: [
                   const Text(
@@ -114,9 +114,21 @@ class _LoginState extends State<Login> {
                                   borderRadius: BorderRadius.circular(10)),
                               child: TextField(
                                 controller: _passwordController,
-                                obscureText: true,
-                                decoration: const InputDecoration(
-                                    prefixIcon: Icon(Icons.password),
+                                obscureText: _passwordVisible ? true : false,
+                                decoration: InputDecoration(
+                                    prefixIcon: const Icon(Icons.password),
+                                    suffixIcon: IconButton(
+                                        onPressed: () => _passwordVisible
+                                            ? setState(() {
+                                                _passwordVisible = false;
+                                              })
+                                            : setState(() {
+                                                _passwordVisible = true;
+                                              }),
+                                        icon: _passwordVisible
+                                            ? const Icon(Icons.remove_red_eye)
+                                            : const Icon(
+                                                CupertinoIcons.eye_slash)),
                                     border: InputBorder.none),
                               ),
                             ),

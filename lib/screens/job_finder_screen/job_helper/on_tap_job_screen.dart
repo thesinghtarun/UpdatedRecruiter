@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:recruiter/helper/ui_helper.dart';
 import 'package:recruiter/screens/job_finder_screen/job_helper/apply_for_job_screen.dart';
+import 'package:recruiter/screens/chats/chat_screen.dart';
 
 class OnTapJobScreen extends StatefulWidget {
   const OnTapJobScreen(
@@ -13,7 +14,8 @@ class OnTapJobScreen extends StatefulWidget {
       required this.jobPostdate,
       required this.jobSkills,
       required this.jobsExperience,
-      required this.jobEmail});
+      required this.jobEmail,
+      required this.jobCompanyName});
   final String jobTitle;
   final String jobDescription;
   final String jobSalary;
@@ -21,6 +23,7 @@ class OnTapJobScreen extends StatefulWidget {
   final String jobSkills;
   final String jobsExperience;
   final String jobEmail;
+  final String jobCompanyName;
 
   @override
   State<OnTapJobScreen> createState() => _OnTapJobScreenState();
@@ -31,7 +34,19 @@ class _OnTapJobScreenState extends State<OnTapJobScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 3,
         title: Text(widget.jobTitle),
+        actions: [
+          IconButton(
+              onPressed: () =>
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return ChatScreen(
+                      emailId: widget.jobEmail,
+                      title: widget.jobTitle,
+                    );
+                  })),
+              icon: const Icon(Icons.message)),
+        ],
       ),
       body: Center(
         child: Column(

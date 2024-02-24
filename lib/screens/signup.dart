@@ -19,8 +19,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final bool _passwordVisible = false;
-  bool isChecked = false;
+  bool _passwordVisible = true;
 
 //image selected by user
   File? _pickedImage;
@@ -33,7 +32,6 @@ class _SignUpState extends State<SignUp> {
   //creating firebaseAuth instance
   final FirebaseAuth _mAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +48,7 @@ class _SignUpState extends State<SignUp> {
                           MediaQuery.of(context).size.width, 105))),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 60),
+              padding: const EdgeInsets.only(top: 40),
               child: Column(
                 children: [
                   const Text(
@@ -75,7 +73,7 @@ class _SignUpState extends State<SignUp> {
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 15),
-                        height: MediaQuery.of(context).size.height / 1.2,
+                        height: MediaQuery.of(context).size.height / 1.31,
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -178,9 +176,21 @@ class _SignUpState extends State<SignUp> {
                                   borderRadius: BorderRadius.circular(10)),
                               child: TextField(
                                 controller: _passwordController,
-                                obscureText: true,
-                                decoration: const InputDecoration(
-                                    prefixIcon: Icon(Icons.password),
+                                obscureText: _passwordVisible ? true : false,
+                                decoration: InputDecoration(
+                                    prefixIcon: const Icon(Icons.password),
+                                    suffixIcon: IconButton(
+                                        onPressed: () => _passwordVisible
+                                            ? setState(() {
+                                                _passwordVisible = false;
+                                              })
+                                            : setState(() {
+                                                _passwordVisible = true;
+                                              }),
+                                        icon: _passwordVisible
+                                            ? const Icon(Icons.remove_red_eye)
+                                            : const Icon(
+                                                CupertinoIcons.eye_slash)),
                                     border: InputBorder.none),
                               ),
                             ),
@@ -206,7 +216,7 @@ class _SignUpState extends State<SignUp> {
                               ),
                             ),
                             const SizedBox(
-                              height: 10,
+                              height: 20,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -221,7 +231,7 @@ class _SignUpState extends State<SignUp> {
                                 ),
                                 InkWell(
                                     onTap: () => Navigator.pushReplacementNamed(
-                                        context, '/Login'),
+                                        context, '/LoginScreen'),
                                     child: const Text(
                                       "SIGN IN",
                                       style: TextStyle(
@@ -234,35 +244,40 @@ class _SignUpState extends State<SignUp> {
                             const SizedBox(
                               height: 15,
                             ),
-                            Center(
-                              child: ElevatedButton(
-                                onPressed: () => validateTextBox(),
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                        const MaterialStatePropertyAll(
-                                      Color.fromARGB(255, 85, 143, 151),
-                                    ),
-                                    shape: MaterialStatePropertyAll(
-                                        RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(40))),
-                                    padding: const MaterialStatePropertyAll(
-                                        EdgeInsets.only(
-                                            left: 60,
-                                            right: 60,
-                                            bottom: 10,
-                                            top: 10))),
-                                child: const Text(
-                                  "Register",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                ),
-                              ),
-                            ),
                           ],
                         ),
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: ElevatedButton(
+                            onPressed: () => validateTextBox(),
+                            style: const ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                  Color.fromARGB(255, 85, 143, 151),
+                                ),
+                                padding: MaterialStatePropertyAll(
+                                    EdgeInsets.only(
+                                        left: 40,
+                                        right: 40,
+                                        bottom: 10,
+                                        top: 10))),
+                            child: const Text(
+                              "Register",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -327,7 +342,9 @@ class _SignUpState extends State<SignUp> {
   }
 
   void validateTextBox() {
-    if (_userNameController.text.toString().isEmpty) {
+    if (_pickedImage == null) {
+      UiHelper.showSnackbar(context, "Choose profile image");
+    } else if (_userNameController.text.toString().isEmpty) {
       UiHelper.showSnackbar(context, "UserName Required");
     } else if (_emailController.text.toString().isEmpty) {
       UiHelper.showSnackbar(context, "Email Id Required");

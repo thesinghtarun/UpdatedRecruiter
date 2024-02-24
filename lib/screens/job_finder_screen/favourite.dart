@@ -41,6 +41,7 @@ class _FavouriteState extends State<Favourite> {
                               jobPostdate: jobsData["posted at"],
                               jobEmail: jobsData["email"],
                               jobsExperience: jobsData["experience required"],
+                              jobCompanyName: jobsData["company name"],
                             );
                           },
                         )),

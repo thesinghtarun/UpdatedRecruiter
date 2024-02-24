@@ -13,30 +13,24 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  bool _liked = false;
+  //bool _liked = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         // backgroundColor: const Color.fromARGB(41, 85, 143, 151),
         body: Column(children: [
-          const Text(
-            "Recruiter",
-            style: TextStyle(
-                color: Color.fromARGB(255, 85, 143, 151),
-                fontSize: 30,
-                fontFamily: "GreatVibes-Regular"),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              decoration: InputDecoration(
-                  hintText: "Search Jobs",
-                  prefixIcon: const Icon(Icons.search),
-                  suffix: ElevatedButton(
-                    child: const Text("Search"),
-                    onPressed: () => print("Search"),
-                  )),
+          const Padding(
+            padding: EdgeInsets.only(left: 10, top: 5),
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                "Recruiter",
+                style: TextStyle(
+                    color: Color.fromARGB(255, 85, 143, 151),
+                    fontSize: 40,
+                    fontFamily: "GreatVibes-Regular"),
+              ),
             ),
           ),
           const SizedBox(
@@ -69,6 +63,7 @@ class _HomePageState extends State<HomePage> {
                                   jobEmail: jobsData["email"],
                                   jobsExperience:
                                       jobsData["experience required"],
+                                  jobCompanyName: jobsData["company name"],
                                 );
                               },
                             )),
@@ -76,9 +71,6 @@ class _HomePageState extends State<HomePage> {
                             subtitle: Text(jobsData["description"]),
                             trailing: IconButton(
                                 onPressed: () async {
-                                  setState(() {
-                                    _liked = true;
-                                  });
                                   Map<String, dynamic> likedJobs = {
                                     "title": jobsData["title"],
                                     "description": jobsData["description"],
@@ -97,14 +89,9 @@ class _HomePageState extends State<HomePage> {
                                       .then((value) => UiHelper.showSnackbar(
                                           context, "Added to fav"));
                                 },
-                                icon: _liked
-                                    ? Icon(
-                                        CupertinoIcons.heart_fill,
-                                        color: Colors.red[200],
-                                      )
-                                    : const Icon(
-                                        CupertinoIcons.heart,
-                                      )),
+                                icon: const Icon(
+                                  CupertinoIcons.heart,
+                                )),
                           ),
                         );
                       },

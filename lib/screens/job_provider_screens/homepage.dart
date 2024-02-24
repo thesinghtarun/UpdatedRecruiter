@@ -43,10 +43,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 } else {
-                  return Text("No Jobs Found");
+                  return const Text("No Jobs Found");
                 }
               } else {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }

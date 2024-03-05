@@ -195,6 +195,7 @@ class _AddState extends State<Add> {
       "salary": salary,
       "experience required": experience,
       "company name": companyName,
+      "profilePic url": null
     };
 
     //Adding to database

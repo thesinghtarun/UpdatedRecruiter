@@ -55,9 +55,9 @@ class _JobProviderHomeScreenState extends State<JobProviderHomeScreen> {
             });
           },
           children: const [
-            Chat(),
             HomePage(),
             Add(),
+            Chat(),
             Profile(),
           ],
         ),

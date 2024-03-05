@@ -26,6 +26,7 @@ class _ApplyForJobScreenState extends State<ApplyForJobScreen> {
   bool _check = false;
   bool _visibleTextBox = false;
   String selectAvailability = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,6 +81,7 @@ class _ApplyForJobScreenState extends State<ApplyForJobScreen> {
                   onChanged: (value) => setState(() {
                     selectAvailability = value.toString();
                     _visibleTextBox = false;
+                    _noController.text = "";
                   }),
                 ),
                 const Text(
@@ -91,11 +93,12 @@ class _ApplyForJobScreenState extends State<ApplyForJobScreen> {
             Row(
               children: [
                 Radio(
-                  value: "No, $_noController",
+                  value: "No, ",
                   groupValue: selectAvailability,
                   onChanged: (value) => setState(() {
                     selectAvailability = value.toString();
                     _visibleTextBox = true;
+                    print(_noController.text.toString());
                   }),
                 ),
                 const Text(
@@ -200,7 +203,9 @@ class _ApplyForJobScreenState extends State<ApplyForJobScreen> {
                 "Submit Application",
                 style: TextStyle(color: Colors.white),
               ),
-              onPressed: () => validate(),
+              onPressed: () {
+                validate();
+              },
             ),
           ]),
         ),
@@ -222,7 +227,12 @@ class _ApplyForJobScreenState extends State<ApplyForJobScreen> {
 
   void sendEmail() async {
     String body =
-        "${_hireController.text.toString()}\n\n\n Availability: $selectAvailability";
+        "${_hireController.text.toString()}\n\n\nAvailability: $selectAvailability";
+
+    if (_visibleTextBox) {
+      // Include the value of _noController when "No" is selected
+      body += _noController.text;
+    }
     final Email email = Email(
       body: body,
       subject: widget.jobTitle,

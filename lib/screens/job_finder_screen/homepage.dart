@@ -43,59 +43,128 @@ class _HomePageState extends State<HomePage> {
                 if (snapshot.hasData && snapshot.data != null) {
                   return Expanded(
                     child: ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        Map<String, dynamic> jobsData =
-                            snapshot.data!.docs[index].data()
-                                as Map<String, dynamic>;
-                        return Card(
-                          elevation: 2,
-                          child: ListTile(
-                            onTap: () =>
-                                Navigator.push(context, MaterialPageRoute(
-                              builder: (context) {
-                                return OnTapJobScreen(
-                                  jobTitle: jobsData["title"],
-                                  jobDescription: jobsData["description"],
-                                  jobSalary: jobsData["salary"],
-                                  jobSkills: jobsData["skills"],
-                                  jobPostdate: jobsData["posted at"],
-                                  jobEmail: jobsData["email"],
-                                  jobsExperience:
-                                      jobsData["experience required"],
-                                  jobCompanyName: jobsData["company name"],
-                                );
-                              },
-                            )),
-                            title: Text(jobsData["title"]),
-                            subtitle: Text(jobsData["description"]),
-                            trailing: IconButton(
-                                onPressed: () async {
-                                  Map<String, dynamic> likedJobs = {
-                                    "title": jobsData["title"],
-                                    "description": jobsData["description"],
-                                    "salary": jobsData["salary"],
-                                    "skills": jobsData["skills"],
-                                    "posted at": jobsData["posted at"],
-                                    "email": jobsData["email"],
-                                    "experience required":
-                                        jobsData["experience required"],
-                                  };
-                                  await _firestore
-                                      .collection("likedJobs")
-                                      .doc(
-                                          '${jobsData["title"]} ${jobsData["email"]}')
-                                      .set(likedJobs)
-                                      .then((value) => UiHelper.showSnackbar(
-                                          context, "Added to fav"));
-                                },
-                                icon: const Icon(
-                                  CupertinoIcons.heart,
-                                )),
-                          ),
-                        );
-                      },
-                    ),
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (context, index) {
+                          Map<String, dynamic> jobsData =
+                              snapshot.data!.docs[index].data()
+                                  as Map<String, dynamic>;
+                          return Card(
+                            elevation: 4,
+                            child: Row(
+                              children: [
+                                Container(
+                                  color: Colors.white,
+                                  width: 92,
+                                  height: 138.2,
+                                  child: Image.asset(
+                                    "assets/images/iconGoogle.png",
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                                ),
+                                Expanded(
+                                    child: Container(
+                                  decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(7),
+                                          bottomRight: Radius.circular(7))),
+                                  child: ListTile(
+                                    onTap: () => Navigator.push(context,
+                                        MaterialPageRoute(
+                                      builder: (context) {
+                                        return OnTapJobScreen(
+                                          jobTitle: jobsData["title"],
+                                          jobDescription:
+                                              jobsData["description"],
+                                          jobSalary: jobsData["salary"],
+                                          jobSkills: jobsData["skills"],
+                                          jobPostdate: jobsData["posted at"],
+                                          jobEmail: jobsData["email"],
+                                          jobsExperience:
+                                              jobsData["experience required"],
+                                          jobCompanyName:
+                                              jobsData["company name"],
+                                        );
+                                      },
+                                    )),
+                                    title: Text(jobsData["title"]),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Company: ${jobsData["company name"]}',
+                                          style: const TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.black87),
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 5, vertical: 3),
+                                          decoration: BoxDecoration(
+                                              color: const Color.fromARGB(
+                                                  43, 158, 158, 158),
+                                              borderRadius:
+                                                  BorderRadius.circular(4)),
+                                          child: Text(
+                                            'Salary: ₹${jobsData["salary"]}',
+                                            style: const TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                                color: Color.fromARGB(
+                                                    145, 0, 0, 0)),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Skills: ${jobsData["skills"]}',
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color.fromARGB(
+                                                255, 60, 106, 176),
+                                          ),
+                                        ),
+                                        Text(
+                                          'postedDate: ${jobsData["posted at"]}',
+                                          style: const TextStyle(
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.black45),
+                                        ),
+                                      ],
+                                    ),
+                                    trailing: IconButton(
+                                        onPressed: () async {
+                                          Map<String, dynamic> likedJobs = {
+                                            "title": jobsData["title"],
+                                            "description":
+                                                jobsData["description"],
+                                            "salary": jobsData["salary"],
+                                            "skills": jobsData["skills"],
+                                            "posted at": jobsData["posted at"],
+                                            "email": jobsData["email"],
+                                            "experience required":
+                                                jobsData["experience required"],
+                                          };
+                                          await _firestore
+                                              .collection("likedJobs")
+                                              .doc(
+                                                  '${jobsData["title"]} ${jobsData["email"]}')
+                                              .set(likedJobs)
+                                              .then((value) =>
+                                                  UiHelper.showSnackbar(
+                                                      context, "Added to fav"));
+                                        },
+                                        icon: const Icon(
+                                          CupertinoIcons.heart,
+                                        )),
+                                  ),
+                                ))
+                              ],
+                            ),
+                          );
+                        }),
                   );
                 } else {
                   return const Text("No Jobs Found");

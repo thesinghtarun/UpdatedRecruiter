@@ -384,7 +384,7 @@ class _SignUpState extends State<SignUp> {
     final imageBytes = await _pickedImage!.readAsBytes();
     UploadTask uploadTask = FirebaseStorage.instance
         .ref("profilePic")
-        .child("$userName profilePic")
+        .child("$email profilePic")
         .putData(imageBytes);
 
     TaskSnapshot snapshot = await uploadTask;

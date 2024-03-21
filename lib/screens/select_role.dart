@@ -1,10 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:recruiter/screens/job_finder_screen/job_finder_home_screen.dart';
 import 'package:recruiter/screens/job_provider_screens/job_provider_home.dart';
 
-class SelectRole extends StatelessWidget {
-  const SelectRole({super.key});
+class SelectRole extends StatefulWidget {
+  const SelectRole({
+    super.key,
+  });
 
+  @override
+  State<SelectRole> createState() => _SelectRoleState();
+}
+
+class _SelectRoleState extends State<SelectRole> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,11 +98,13 @@ class SelectRole extends StatelessWidget {
                             backgroundColor: Colors.white,
                             child: IconButton(
                                 icon: const Icon(Icons.arrow_forward),
-                                onPressed: () => Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const JobFinderHomeScreen()))),
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const JobFinderHomeScreen()));
+                                }),
                           )
                         ],
                       ),
@@ -147,11 +160,13 @@ class SelectRole extends StatelessWidget {
                             backgroundColor: Colors.white,
                             child: IconButton(
                                 icon: const Icon(Icons.arrow_forward),
-                                onPressed: () => Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const JobProviderHomeScreen()))),
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const JobProviderHomeScreen()));
+                                }),
                           )
                         ],
                       ),

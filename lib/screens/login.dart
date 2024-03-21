@@ -1,10 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recruiter/screens/forgot_password/forgotpassword.dart';
+
 import 'package:recruiter/helper/ui_helper.dart';
+import 'package:recruiter/screens/forgot_password/forget_password.dart';
 import 'package:recruiter/screens/select_role.dart';
 import 'package:recruiter/screens/signup.dart';
 
@@ -18,6 +20,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   bool _passwordVisible = true;
 
   //Creating firebaseAuth instance
@@ -136,14 +139,21 @@ class _LoginState extends State<Login> {
                             const SizedBox(
                               height: 10,
                             ),
-                            const Align(
+                            Align(
                                 alignment: Alignment.centerRight,
-                                child: Text(
-                                  "Forget Password?",
-                                  style: TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
+                                child: InkWell(
+                                  onTap: () => Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const ForgetPassword())),
+                                  child: const Text(
+                                    "Forget Password?",
+                                    style: TextStyle(
+                                        color: Colors.blue,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 )),
                             const SizedBox(
                               height: 20,
@@ -173,91 +183,91 @@ class _LoginState extends State<Login> {
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  "Don't have an account?",
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                InkWell(
-                                    onTap: () => Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const SignUp())),
-                                    child: const Text(
-                                      "SIGN UP",
-                                      style: TextStyle(
-                                          fontSize: 19,
-                                          color: Colors.blue,
-                                          fontWeight: FontWeight.bold),
-                                    )),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: Divider(
-                                    thickness: 1,
-                                    height: 2,
-                                  ),
-                                ),
-                                Text(
-                                  "Or",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Expanded(
-                                  child: Divider(
-                                    thickness: 1,
-                                    height: 2,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 7,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () =>
-                                      UiHelper.showSnackbar(context, "Google"),
-                                  child: Image.asset(
-                                    "assets/images/iconGoogle.png",
-                                    height: 25,
-                                    width: 25,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 40,
-                                ),
-                                InkWell(
-                                  onTap: () =>
-                                      UiHelper.showSnackbar(context, "Phone"),
-                                  child: Image.asset(
-                                    "assets/images/iconPhone.png",
-                                    height: 25,
-                                    width: 25,
-                                  ),
-                                ),
-                              ],
-                            )
+                            //   const SizedBox(
+                            //     height: 15,
+                            //   ),
+                            //   Row(
+                            //     crossAxisAlignment: CrossAxisAlignment.center,
+                            //     mainAxisAlignment: MainAxisAlignment.center,
+                            //     children: [
+                            //       const Text(
+                            //         "Don't have an account?",
+                            //         style: TextStyle(fontSize: 18),
+                            //       ),
+                            //       const SizedBox(
+                            //         width: 5,
+                            //       ),
+                            //       InkWell(
+                            //           onTap: () => Navigator.pushReplacement(
+                            //               context,
+                            //               MaterialPageRoute(
+                            //                   builder: (context) =>
+                            //                       const SignUp())),
+                            //           child: const Text(
+                            //             "SIGN UP",
+                            //             style: TextStyle(
+                            //                 fontSize: 19,
+                            //                 color: Colors.blue,
+                            //                 fontWeight: FontWeight.bold),
+                            //           )),
+                            //     ],
+                            //   ),
+                            //   const SizedBox(
+                            //     height: 8,
+                            //   ),
+                            //   const Row(
+                            //     mainAxisAlignment: MainAxisAlignment.center,
+                            //     crossAxisAlignment: CrossAxisAlignment.center,
+                            //     children: [
+                            //       Expanded(
+                            //         child: Divider(
+                            //           thickness: 1,
+                            //           height: 2,
+                            //         ),
+                            //       ),
+                            //       Text(
+                            //         "Or",
+                            //         style: TextStyle(
+                            //             fontSize: 18,
+                            //             fontWeight: FontWeight.bold),
+                            //       ),
+                            //       Expanded(
+                            //         child: Divider(
+                            //           thickness: 1,
+                            //           height: 2,
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            //   const SizedBox(
+                            //     height: 7,
+                            //   ),
+                            //   Row(
+                            //     mainAxisAlignment: MainAxisAlignment.center,
+                            //     children: [
+                            //       InkWell(
+                            //         onTap: () =>
+                            //             UiHelper.showSnackbar(context, "Google"),
+                            //         child: Image.asset(
+                            //           "assets/images/iconGoogle.png",
+                            //           height: 25,
+                            //           width: 25,
+                            //         ),
+                            //       ),
+                            //       const SizedBox(
+                            //         width: 40,
+                            //       ),
+                            //       InkWell(
+                            //         onTap: () =>
+                            //             UiHelper.showSnackbar(context, "Phone"),
+                            //         child: Image.asset(
+                            //           "assets/images/iconPhone.png",
+                            //           height: 25,
+                            //           width: 25,
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   )
                           ],
                         ),
                       ),

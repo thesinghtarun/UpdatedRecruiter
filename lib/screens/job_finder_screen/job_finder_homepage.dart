@@ -58,11 +58,6 @@ class _HomePageState extends State<HomePage> {
                                   color: Colors.white,
                                   width: 92,
                                   height: 138.2,
-
-                                  // child: Image.network(
-                                  //   jobsData["profilePic"],
-                                  // fit: BoxFit.fill,
-                                  // ),
                                   child: Image.asset(
                                     "assets/images/iconGoogle.png",
                                     fit: BoxFit.fitWidth,

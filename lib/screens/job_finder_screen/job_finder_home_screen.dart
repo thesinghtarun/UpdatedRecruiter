@@ -23,13 +23,13 @@ class _JobFinderHomeScreenState extends State<JobFinderHomeScreen> {
       ),
       label: "Home",
     ),
-    const BottomNavigationBarItem(
-      icon: Icon(
-        Icons.search,
-        color: Color.fromARGB(205, 22, 68, 87),
-      ),
-      label: "Search",
-    ),
+    // const BottomNavigationBarItem(
+    //   icon: Icon(
+    //     Icons.search,
+    //     color: Color.fromARGB(205, 22, 68, 87),
+    //   ),
+    //   label: "Search",
+    // ),
     const BottomNavigationBarItem(
       icon: Icon(
         Icons.file_copy,
@@ -64,7 +64,7 @@ class _JobFinderHomeScreenState extends State<JobFinderHomeScreen> {
           },
           children: const [
             HomePage(),
-            Search(),
+            // Search(),
             AppliedJobs(),
             Favourite(),
             Profile(),

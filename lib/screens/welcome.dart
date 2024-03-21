@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:recruiter/screens/help.dart';
 
 import 'login.dart';
 import 'signup.dart';
@@ -150,7 +151,20 @@ class _WelcomeState extends State<Welcome> {
               ],
             ),
             const SizedBox(
-              height: 20,
+              height: 7,
+            ),
+            InkWell(
+                onTap: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Help())),
+                child: const Text(
+                  "Help",
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                )),
+            const SizedBox(
+              height: 17,
             ),
           ],
         ),

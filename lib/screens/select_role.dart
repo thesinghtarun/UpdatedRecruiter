@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:recruiter/screens/job_finder_screen/job_finder_home_screen.dart';
+import 'package:recruiter/screens/job_provider_screens/job_provider_home.dart';
 
 class SelectRole extends StatelessWidget {
   const SelectRole({super.key});
@@ -85,8 +87,11 @@ class SelectRole extends StatelessWidget {
                             backgroundColor: Colors.white,
                             child: IconButton(
                                 icon: const Icon(Icons.arrow_forward),
-                                onPressed: () => Navigator.pushNamed(
-                                    context, "/JobFinderHomeScreen")),
+                                onPressed: () => Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const JobFinderHomeScreen()))),
                           )
                         ],
                       ),
@@ -142,8 +147,11 @@ class SelectRole extends StatelessWidget {
                             backgroundColor: Colors.white,
                             child: IconButton(
                                 icon: const Icon(Icons.arrow_forward),
-                                onPressed: () => Navigator.pushNamed(
-                                    context, "/JobProviderHomeScreen")),
+                                onPressed: () => Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const JobProviderHomeScreen()))),
                           )
                         ],
                       ),

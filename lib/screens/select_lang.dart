@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:recruiter/screens/welcome.dart';
 
 class SelectLanguage extends StatelessWidget {
   const SelectLanguage({super.key});
@@ -89,8 +90,8 @@ class SelectLanguage extends StatelessWidget {
             "Get Started",
             style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
           ),
-          onPressed: () =>
-              Navigator.pushReplacementNamed(context, "/WelcomeScreen")),
+          onPressed: () => Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const Welcome()))),
     );
   }
 }

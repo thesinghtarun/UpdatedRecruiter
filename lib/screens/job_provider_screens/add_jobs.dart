@@ -17,7 +17,8 @@ class _AddState extends State<Add> {
   final TextEditingController _skillsController = TextEditingController();
   final TextEditingController _salaryController = TextEditingController();
   final TextEditingController _companyNameController = TextEditingController();
-  final TextEditingController _profileLinkController = TextEditingController();
+  //Auth
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   //Database
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -199,7 +200,7 @@ class _AddState extends State<Add> {
     };
 
     //Adding to database
-    await _firestore.collection("Jobs").add(addJobs).then(
+    await _firestore.collection("jobs").add(addJobs).then(
       (value) {
         UiHelper.showSnackbar(context, "Job Added");
         _titleController.text = "";

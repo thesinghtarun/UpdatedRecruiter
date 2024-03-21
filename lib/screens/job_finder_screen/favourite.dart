@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recruiter/helper/ui_helper.dart';
-import 'package:recruiter/screens/job_finder_screen/job_helper/on_tap_job_screen.dart';
+import 'package:recruiter/screens/job_finder_screen/job_helper/job_description.dart';
 
 class Favourite extends StatefulWidget {
   const Favourite({super.key});
@@ -12,13 +13,18 @@ class Favourite extends StatefulWidget {
 }
 
 class _FavouriteState extends State<Favourite> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
           child: StreamBuilder<QuerySnapshot>(
-        stream: _firestore.collection("likedJobs").snapshots(),
+        stream: _firestore
+            .collection("users")
+            .doc(_auth.currentUser!.email.toString())
+            .collection("savedJobs")
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
             if (snapshot.hasData && snapshot.data != null) {
@@ -33,7 +39,7 @@ class _FavouriteState extends State<Favourite> {
                       child: ListTile(
                         onTap: () => Navigator.push(context, MaterialPageRoute(
                           builder: (context) {
-                            return OnTapJobScreen(
+                            return JobDescription(
                               jobTitle: jobsData["title"],
                               jobDescription: jobsData["description"],
                               jobSalary: jobsData["salary"],

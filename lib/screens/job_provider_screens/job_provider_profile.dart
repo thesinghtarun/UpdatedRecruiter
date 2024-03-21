@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:recruiter/screens/login.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -151,7 +152,7 @@ class _ProfileState extends State<Profile> {
   }
 
   void signOut() async {
-    await _mAuth.signOut().then(
-        (value) => Navigator.pushReplacementNamed(context, "/LoginScreen"));
+    await _mAuth.signOut().then((value) => Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => const Login())));
   }
 }

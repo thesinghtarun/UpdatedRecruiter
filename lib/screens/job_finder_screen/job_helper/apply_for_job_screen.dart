@@ -2,18 +2,35 @@
 
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 import 'package:recruiter/helper/ui_helper.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:recruiter/screens/job_finder_screen/job_finder_home_screen.dart';
 
 class ApplyForJobScreen extends StatefulWidget {
   const ApplyForJobScreen(
-      {super.key, required this.jobEmail, required this.jobTitle});
+      {super.key,
+      required this.jobEmail,
+      required this.jobTitle,
+      required this.jobDescription,
+      required this.jobSalary,
+      required this.jobPostdate,
+      required this.jobSkills,
+      required this.jobsExperience,
+      required this.jobCompanyName});
   final String jobEmail;
   final String jobTitle;
+  final String jobDescription;
+  final String jobSalary;
+  final String jobPostdate;
+  final String jobSkills;
+  final String jobsExperience;
+  final String jobCompanyName;
 
   @override
   State<ApplyForJobScreen> createState() => _ApplyForJobScreenState();
@@ -22,6 +39,9 @@ class ApplyForJobScreen extends StatefulWidget {
 class _ApplyForJobScreenState extends State<ApplyForJobScreen> {
   final TextEditingController _hireController = TextEditingController();
   final TextEditingController _noController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   File? _pickedFile;
   bool _check = false;
   bool _visibleTextBox = false;
@@ -48,6 +68,7 @@ class _ApplyForJobScreenState extends State<ApplyForJobScreen> {
               height: 10,
             ),
             Container(
+              padding: const EdgeInsets.only(left: 10),
               height: MediaQuery.of(context).size.height / 4,
               decoration: BoxDecoration(
                   border: Border.all(
@@ -243,8 +264,10 @@ class _ApplyForJobScreenState extends State<ApplyForJobScreen> {
       isHTML: false,
     );
     await FlutterEmailSender.send(email).then((value) {
+      _appliedJobs();
       UiHelper.showSnackbar(context, "Application Submitted");
-      Navigator.pushReplacementNamed(context, '/JobFinderHomeScreen');
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const JobFinderHomeScreen()));
     });
   }
 
@@ -266,5 +289,25 @@ class _ApplyForJobScreenState extends State<ApplyForJobScreen> {
     } else {
       UiHelper.showSnackbar(context, "Choose Again");
     }
+  }
+
+  void _appliedJobs() async {
+    Map<String, dynamic> addJobData = {
+      "job title": widget.jobTitle,
+      "company name": widget.jobCompanyName,
+      "salary": widget.jobSalary,
+      "description": widget.jobDescription,
+      "skills": widget.jobSkills,
+      "job email": widget.jobEmail,
+      "posted at": widget.jobPostdate,
+      "experience required": widget.jobsExperience
+    };
+
+    _firestore
+        .collection("users")
+        .doc(_auth.currentUser!.email.toString())
+        .collection("applied jobs")
+        .doc()
+        .set(addJobData);
   }
 }

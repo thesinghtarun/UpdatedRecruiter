@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recruiter/helper/ui_helper.dart';
+import 'package:recruiter/screens/login.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -230,8 +231,11 @@ class _SignUpState extends State<SignUp> {
                                   width: 5,
                                 ),
                                 InkWell(
-                                    onTap: () => Navigator.pushReplacementNamed(
-                                        context, '/LoginScreen'),
+                                    onTap: () => Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const Login())),
                                     child: const Text(
                                       "SIGN IN",
                                       style: TextStyle(
@@ -409,6 +413,7 @@ class _SignUpState extends State<SignUp> {
   Future<void> signUp(String email, String password) async {
     await _mAuth.createUserWithEmailAndPassword(
         email: email, password: password);
-    Navigator.pushReplacementNamed(context, "/LoginScreen");
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => const Login()));
   }
 }

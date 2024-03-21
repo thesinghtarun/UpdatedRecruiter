@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:recruiter/firebase_options.dart';
@@ -17,19 +18,41 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(MaterialApp(
-    routes: {
-      '/': (context) => const Login(),
-      '/WelcomeScreen': (context) => const Welcome(),
-      '/SignUpScreen': (context) => const SignUp(),
-      '/LoginScreen': (context) => const Login(),
-      '/SelectRoleScreen': (context) => const SelectRole(),
-      '/JobFinderHomeScreen': (context) => const JobFinderHomeScreen(),
-      '/JobProviderHomeScreen': (context) => const JobProviderHomeScreen(),
-      '/PhoneNumberScreen': (context) => const PhoneNumberScreen(),
-      '/OtpScreen': (context) => const OtpScreen(),
-      '/ForgetPasswordScreen': (context) => const ForgotPassword(),
-    },
+  runApp(const MaterialApp(
+    home: MyApp(),
     debugShowCheckedModeBanner: false,
   ));
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  Widget build(BuildContext context) {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: StreamBuilder(
+        stream: auth.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.active) {
+            User? user = snapshot.data as User?;
+            if (user == null) {
+              return const Welcome();
+            } else {
+              return const SelectRole();
+            }
+          } else {
+            return const Scaffold(
+                body: Center(child: CircularProgressIndicator()));
+          }
+        },
+      ),
+    );
+  }
 }

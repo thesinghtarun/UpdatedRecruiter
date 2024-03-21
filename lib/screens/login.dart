@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recruiter/screens/forgot_password/forgotpassword.dart';
 import 'package:recruiter/helper/ui_helper.dart';
+import 'package:recruiter/screens/select_role.dart';
 import 'package:recruiter/screens/signup.dart';
 
 class Login extends StatefulWidget {
@@ -187,8 +188,11 @@ class _LoginState extends State<Login> {
                                   width: 5,
                                 ),
                                 InkWell(
-                                    onTap: () => Navigator.pushReplacementNamed(
-                                        context, '/SignUpScreen'),
+                                    onTap: () => Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SignUp())),
                                     child: const Text(
                                       "SIGN UP",
                                       style: TextStyle(
@@ -284,8 +288,8 @@ class _LoginState extends State<Login> {
           .signInWithEmailAndPassword(
               email: _emailController.text.toString(),
               password: _passwordController.text.toString())
-          .then((value) =>
-              Navigator.pushReplacementNamed(context, "/SelectRoleScreen"));
+          .then((value) => Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const SelectRole())));
     } catch (e) {
       UiHelper.showSnackbar(context, e.toString());
     }

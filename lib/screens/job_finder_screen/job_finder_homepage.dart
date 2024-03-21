@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recruiter/helper/ui_helper.dart';
-import 'package:recruiter/screens/job_finder_screen/job_helper/on_tap_job_screen.dart';
+import 'package:recruiter/screens/job_finder_screen/job_helper/job_description.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,7 +14,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  //bool _liked = false;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  bool _bookmark = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -37,7 +39,7 @@ class _HomePageState extends State<HomePage> {
             height: 13,
           ),
           StreamBuilder<QuerySnapshot>(
-            stream: _firestore.collection("Jobs").snapshots(),
+            stream: _firestore.collection("jobs").snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.active) {
                 if (snapshot.hasData && snapshot.data != null) {
@@ -56,6 +58,11 @@ class _HomePageState extends State<HomePage> {
                                   color: Colors.white,
                                   width: 92,
                                   height: 138.2,
+
+                                  // child: Image.network(
+                                  //   jobsData["profilePic"],
+                                  // fit: BoxFit.fill,
+                                  // ),
                                   child: Image.asset(
                                     "assets/images/iconGoogle.png",
                                     fit: BoxFit.fitWidth,
@@ -72,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                                     onTap: () => Navigator.push(context,
                                         MaterialPageRoute(
                                       builder: (context) {
-                                        return OnTapJobScreen(
+                                        return JobDescription(
                                           jobTitle: jobsData["title"],
                                           jobDescription:
                                               jobsData["description"],
@@ -87,7 +94,12 @@ class _HomePageState extends State<HomePage> {
                                         );
                                       },
                                     )),
-                                    title: Text(jobsData["title"]),
+                                    title: Text(
+                                      jobsData["title"],
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                    ),
                                     subtitle: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -148,7 +160,10 @@ class _HomePageState extends State<HomePage> {
                                                 jobsData["experience required"],
                                           };
                                           await _firestore
-                                              .collection("likedJobs")
+                                              .collection("users")
+                                              .doc(_auth.currentUser!.email
+                                                  .toString())
+                                              .collection("savedJobs")
                                               .doc(
                                                   '${jobsData["title"]} ${jobsData["email"]}')
                                               .set(likedJobs)
@@ -157,7 +172,7 @@ class _HomePageState extends State<HomePage> {
                                                       context, "Added to fav"));
                                         },
                                         icon: const Icon(
-                                          CupertinoIcons.heart,
+                                          CupertinoIcons.bookmark,
                                         )),
                                   ),
                                 ))

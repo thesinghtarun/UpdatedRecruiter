@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:recruiter/screens/job_provider_screens/add.dart';
+import 'package:recruiter/screens/job_provider_screens/add_jobs.dart';
 import 'package:recruiter/screens/job_provider_screens/chat.dart';
-import 'package:recruiter/screens/job_provider_screens/homepage.dart';
-import 'package:recruiter/screens/job_provider_screens/profile.dart';
+import 'package:recruiter/screens/job_provider_screens/job_provider_homepage.dart';
+import 'package:recruiter/screens/job_provider_screens/job_provider_profile.dart';
 
 class JobProviderHomeScreen extends StatefulWidget {
   const JobProviderHomeScreen({super.key});

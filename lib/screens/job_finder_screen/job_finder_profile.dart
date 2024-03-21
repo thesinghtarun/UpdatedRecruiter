@@ -310,7 +310,7 @@ class _ProfileState extends State<Profile> {
         // Upload the new image to storage
         final Reference storageReference = FirebaseStorage.instance
             .ref()
-            .child("profile_images")
+            .child("profilePic")
             .child("${_auth.currentUser!.uid}.jpg");
         await storageReference.putFile(_pickedImage!);
 
